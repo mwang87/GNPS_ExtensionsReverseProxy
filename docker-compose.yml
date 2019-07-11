@@ -12,7 +12,7 @@ services:
   redu-ms2:
     build: ./ReDU-MS2-GNPS/code
     ports:
-      - "5006:5001"
+      - "5005:5001"
     volumes:
       - ./ReDU-MS2-GNPS/database/:/app/database
     command: /app/run_production_server.sh
