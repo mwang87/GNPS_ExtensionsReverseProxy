@@ -12,6 +12,7 @@ services:
 
   redu-ms2:
     build: ./ReDU-MS2-GNPS/code
+    network_mode: bridge
     ports:
       - "5005:5001"
     volumes:
