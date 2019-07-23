@@ -3,20 +3,16 @@ version: '3'
 services:
   nginx-proxy:
     image: jwilder/nginx-proxy:alpine
-    network_mode: bridge
+    networks:
+      - nginx-net
     ports:
       - "8000:80"
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
     restart: unless-stopped
 
-  # redu-ms2:
-  #   build: ./ReDU-MS2-GNPS/code
-  #   ports:
-  #     - "5005:5001"
-  #   volumes:
-  #     - ./ReDU-MS2-GNPS/database/:/app/database
-  #   command: /app/run_production_server.sh
-  #   environment:
-  #     - VIRTUAL_HOST=redu.ucsd.edu
-  #     - VIRTUAL_PORT=5006
+networks:
+  nginx-net:
+    external:
+      name: nginx-net
+
