@@ -44,6 +44,7 @@ services:
       - "80:80"
       - "443:443"
     volumes:
+      - ./my_proxy.conf:/etc/nginx/conf.d/my_proxy.conf:ro
       - conf:/etc/nginx/conf.d
       - vhost:/etc/nginx/vhost.d
       - html:/usr/share/nginx/html
