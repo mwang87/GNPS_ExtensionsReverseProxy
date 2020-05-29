@@ -55,7 +55,7 @@ services:
       - nginx-net
 
   letsencrypt:
-    image: jrcs/letsencrypt-nginx-proxy-companion
+    image: jrcs/letsencrypt-nginx-proxy-companion:v1.12
     container_name: nginx-proxy-le
     volumes_from:
       - nginx-proxy
