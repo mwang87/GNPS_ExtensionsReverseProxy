@@ -46,6 +46,7 @@ services:
     volumes:
       - ./my_proxy.conf:/etc/nginx/conf.d/my_proxy.conf:ro
       - ./smart.ucsd.edu:/etc/nginx/vhost.d/smart.ucsd.edu:ro
+      - ./gnps-external.ucsd.edu:/etc/nginx/vhost.d/gnps-external.ucsd.edu:ro
       - conf:/etc/nginx/conf.d
       - vhost:/etc/nginx/vhost.d
       - html:/usr/share/nginx/html
