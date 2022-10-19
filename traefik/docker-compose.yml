@@ -9,6 +9,8 @@ services:
       - --api.insecure=true 
       - --providers.docker
       - --accesslog.filepath=/access_logs/access.log
+      - --metrics.prometheus=true
+      - --metrics.prometheus.buckets=0.1,0.3,1.2,5.0
       # - "--providers.docker.exposedbydefault=false"
       # - "--entrypoints.websecure.address=:443"
       # - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
