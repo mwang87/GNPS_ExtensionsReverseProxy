@@ -6,7 +6,9 @@ services:
     image: traefik:v2.9
     # Enables the web UI and tells Traefik to listen to docker
     command: 
-      - --api.insecure=true 
+      #- --api.insecure=true
+      - --api.dashboard=true
+      - --api.insecure=false
       - --providers.docker
       - --accesslog.filepath=/access_logs/access.log
       - --metrics.prometheus=true
@@ -24,13 +26,23 @@ services:
       # The HTTPS port
       - "443:443"
       # The Web UI (enabled by --api.insecure=true)
-      - "8080:8080"
+      #- "8080:8080"
     restart: "always"
     volumes:
       # So that Traefik can listen to the Docker events
       - "./letsencrypt:/letsencrypt"
       - /var/run/docker.sock:/var/run/docker.sock
       - "./access_logs:/access_logs"
+      - "./credentials.txt:/credentials.txt:ro"
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.dashboard.rule=Host(`traefik.wanglab.science`)' #Update to your domain
+      - 'traefik.http.routers.dashboard.service=api@internal'
+      - 'traefik.http.services.api.loadbalancer.server.port=8080'
+      - "traefik.http.routers.dashboard.middlewares=auth"
+      - 'traefik.http.middlewares.auth.basicauth.usersfile=/credentials.txt'
+      
+      
 
 networks:
   nginx-net:
