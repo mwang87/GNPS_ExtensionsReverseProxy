@@ -1,38 +1,3 @@
-# version: '3'
-
-# services:
-#   nginx-proxy:
-#     image: jwilder/nginx-proxy:alpine
-#     networks:
-#       - nginx-net
-#     ports:
-#       - "80:80"
-#       - "443:443"
-#     volumes:
-#       - ./ssl/certs-volume:/etc/nginx/certs:ro
-#       - ./ssl/vhost-volume:/etc/nginx/vhost.d:rw
-#       - ./ssl/html-volume:/usr/share/nginx/html:rw
-#       - /var/run/docker.sock:/tmp/docker.sock:ro
-#     restart: unless-stopped
-
-
-#   nginx-proxy-letsencrypt:
-#     image: jrcs/letsencrypt-nginx-proxy-companion:stable
-#     networks:
-#       - nginx-net
-#     volumes:
-#       - ./ssl/certs-volume:/etc/nginx/certs:rw
-#       - /var/run/docker.sock:/tmp/docker.sock:ro
-#     restart: unless-stopped
-#     environment:
-#     - DEFAULT_EMAIL=miw023@ucsd.edu
-
-# networks:
-#   nginx-net:
-#     external:
-#       name: nginx-net
-
-
 #Using Version 2 of Docker compose from this documentation: https://github.com/JrCs/docker-letsencrypt-nginx-proxy-companion/wiki/Docker-Compose
 version: '2'
 
