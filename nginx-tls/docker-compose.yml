@@ -1,0 +1,45 @@
+#Using Version 2 of Docker compose from this documentation: https://github.com/JrCs/docker-letsencrypt-nginx-proxy-companion/wiki/Docker-Compose
+version: '2'
+
+services:
+  nginx-proxy:
+    image: jwilder/nginx-proxy:1.0.1
+    container_name: nginx-proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./my_proxy.conf:/etc/nginx/conf.d/my_proxy.conf:ro
+      - conf:/etc/nginx/conf.d
+      - vhost:/etc/nginx/vhost.d
+      - html:/usr/share/nginx/html
+      - dhparam:/etc/nginx/dhparam
+      - certs:/etc/nginx/certs:ro
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    networks:
+      - nginx-net
+
+  letsencrypt:
+    image: jrcs/letsencrypt-nginx-proxy-companion:2.2.1
+    container_name: nginx-proxy-le
+    volumes_from:
+      - nginx-proxy
+    volumes:
+      - certs:/etc/nginx/certs:rw
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - nginx-net
+    environment:
+     - DEFAULT_EMAIL=miw023@ucsd.edu
+
+volumes:
+  conf:
+  vhost:
+  html:
+  dhparam:
+  certs:
+
+networks:
+  nginx-net:
+    external:
+      name: nginx-net
