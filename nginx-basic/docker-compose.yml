@@ -38,7 +38,7 @@ version: '2'
 
 services:
   nginx-proxy:
-    image: jwilder/nginx-proxy:0.8.0
+    image: jwilder/nginx-proxy:1.0.1
     container_name: nginx-proxy
     ports:
       - "80:80"
