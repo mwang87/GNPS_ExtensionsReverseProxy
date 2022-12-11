@@ -32,29 +32,32 @@ services:
     networks:
       - nginx-net
     environment:
-     - DEFAULT_EMAIL=miw023@ucsd.edu
+     - DEFAULT_EMAIL=miw023@ucsd.edu 
   umami:
-    image: ghcr.io/umami-software/umami:postgresql-v1.37.0
-    container_name: umami
+    image: ghcr.io/mikecao/umami:postgresql-latest
     ports:
-      - "127.0.0.1:3000:3000"
-    env_file: .env
+      - "3000:3000"
+    environment:
+      DATABASE_URL: postgresql://umami:umami@db:5432/umami
+      DATABASE_TYPE: postgresql
+      HASH_SALT: 1234567890
+    depends_on:
+      - db
+    restart: always
     networks:
       - nginx-net
-    depends_on:
-      - db_umami
-    restart: always
-  db_umami:
+  db:
     image: postgres:12-alpine
-    container_name: db_umami
-    env_file: .env
+    environment:
+      POSTGRES_DB: umami
+      POSTGRES_USER: umami
+      POSTGRES_PASSWORD: umami
     volumes:
       - ./sql/schema.postgresql.sql:/docker-entrypoint-initdb.d/schema.postgresql.sql:ro
       - umami-db-data:/var/lib/postgresql/data
-    networks:
-      - nginx-net 
     restart: always
-
+    networks:
+      - nginx-net
 volumes:
   umami-db-data:
   conf:
