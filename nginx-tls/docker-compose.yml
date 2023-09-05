@@ -8,6 +8,7 @@ services:
     ports:
       - "80:80"
       - "443:443"
+    restart: always
     volumes:
       - ./my_proxy.conf:/etc/nginx/conf.d/my_proxy.conf:ro
       - conf:/etc/nginx/conf.d
@@ -22,6 +23,7 @@ services:
   letsencrypt:
     image: jrcs/letsencrypt-nginx-proxy-companion:2.2.1
     container_name: nginx-proxy-le
+    restart: always
     volumes_from:
       - nginx-proxy
     volumes:
