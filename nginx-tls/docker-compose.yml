@@ -19,6 +19,11 @@ services:
       - /var/run/docker.sock:/tmp/docker.sock:ro
     networks:
       - nginx-net
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "5"   # number of files or file count
+        max-size: "100m" # file size
 
   letsencrypt:
     image: jrcs/letsencrypt-nginx-proxy-companion:2.2.1
@@ -32,7 +37,13 @@ services:
     networks:
       - nginx-net
     environment:
-     - DEFAULT_EMAIL=miw023@ucsd.edu
+     - DEFAULT_EMAIL=mwang87@gmail.com
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "5"   # number of files or file count
+        max-size: "100m" # file size
+
 
 volumes:
   conf:

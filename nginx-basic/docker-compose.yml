@@ -19,6 +19,11 @@ services:
       - /var/run/docker.sock:/tmp/docker.sock:ro
     networks:
       - nginx-net
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "5"   # number of files or file count
+        max-size: "100m" # file size
 
 volumes:
   conf:
